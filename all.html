@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        body {
+            margin: 0px;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #box {
+            position: relative;
+            background: #F3E4C9;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            place-items: center;
+            gap: 0.5px;
+            width: 290px;
+            height: 290px;
+        }
+
+        div button {
+            height: 55px;
+            width: 55px;
+            background: #BFA28C;
+        }
+
+
+        #box_text {
+            position: relative;
+        }
+
+        #timer {
+            position: absolute;
+            top: -167px;
+            left: 0px;
+            width: 11ch;
+        }
+
+        #skor {
+            position: absolute;
+            top: -167px;
+            left: 235px;
+            width: 8ch;
+        }
+
+        /*dialog tutor*/
+        .text_dialog {
+            overflow-y: scroll;
+            height: 265px;
+            width: 100%;
+            padding: 5px;
+        }
+
+        dialog {        
+            background: #f1d272;
+            border-radius: 5px;
+            padding: 0px;
+            width: 200px;
+            height: 320px;
+        }
+
+        dialog h2{
+            margin: 2px;
+            text-align: center;
+        }
+
+        dialog p {
+            font-size: 13px;
+        }
+
+        .button_dialog {
+            background: transparent;
+            display: flex;
+            justify-content: right;
+            margin-right: 3px;
+            margin-top: 1px;
+        }
+        dialog button {
+            background: lightblue;
+            position: sticky;
+            border-radius: 12px;
+            width: 55px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <dialog id="dialog">
+        <div class="text_dialog">
+            <h2>Welcome to game urut angka</h2>
+            <p>
+                Hai, terimakasih telah memainkan game ini...<br><br>
+                apakah kamu tau cara memainkan game ini?
+                belum tau? yuk simak tutorial dibawah!<br>
+                1. kamu perlu mencari angka urut 1-25.<br>
+                2. setiap angka yang kamu lihat secara berurut perlu di klik!<br>
+                3. jika kamu klik dan tombol berwarna hijau maka benar, jika merah salah.<br>
+                4. kamu diberi waktu 30 detik untuk menyelesaikan permainan ini! Jika berhasil mengurutkan hingga selesai (25) maka menang, jika tidak maka kamu kalah!
+            </p>
+        </div>
+        
+        <div class="button_dialog">
+            <button onclick="hide_tutorial()">mulai</button>
+        </div>
+    </dialog>
+    
+    
+    <div id="box_text">
+        <input type="text" name="timer" id="timer" size="13" disabled/>
+        <input type="text" name="skor" id="skor" value= "skor:   0" size="8" disabled/>
+    </div>
+    <div id="box"></div>
+    
+    <script>
+        let sudah_ditekan = []
+        const base_text = "time left: "
+        let base_time = 31
+        const timer = document.getElementById("timer")
+        timer.value = "time left: 30"
+
+        document.getElementById("dialog").showModal()
+        function hide_tutorial(){
+            document.getElementById("dialog").close()
+            addButton()
+        }
+
+        function addButton() {
+            sudah_ditekan = []
+            const div_box = document.getElementById("box")
+            const sudah_ada = []
+    
+            div_box.innerHTML = ""
+            for (let i = 1; i <= 25; i++) {
+                let random_num = 0
+
+                while (!random_num || sudah_ada.includes(random_num)) {
+                    random_num = Math.round(Math.random() * 25)
+                }
+
+                //tambah angka yang sydah ada ke array
+                sudah_ada.push(random_num)
+        
+                //console.log(random_num)
+                //buat element button
+                const button_create = document.createElement("button")
+                button_create.textContent = random_num
+                button_create.id = random_num
+                button_create.addEventListener("click", () => {
+                    check(random_num)
+                })
+        
+                setTimeout(() => div_box.appendChild(button_create), i*50)
+            }
+    
+            base_time = 32
+        }
+
+        function check(jawaban) {
+            const button = document.getElementById(jawaban)
+
+            //pengecekan apakah kWaban benar atau salaj
+            if (jawaban !== sudah_ditekan.length+1) {
+                button.style.background = "red"
+                setTimeout(() => button.style.background = "#BFA28C", 750)
+            } else {
+                button.style.background = "#23d63e"
+                setTimeout(() => button.style.background = "#BFA28C", 750);
+                sudah_ditekan.push(jawaban)
+                document.getElementById("skor").value = "skor: "+sudah_ditekan.length
+            }
+    
+            //pengecekan apakah game sudah selesai atau belum
+            if(sudah_ditekan.length === 25){
+                clearInterval(interval)
+                const lagi = confirm("Kamu Berhasil melewati tantangan ini!\nIngin bermain lagi?")
+                if(lagi){
+                    addButton()
+                    intervalConnect()
+                } else {
+                    alert("Terimakasih sudah memainkan game ini ya!!")
+                }
+            }
+        }
+
+        let interval = setInterval(() => {
+            if (base_time !== 0) {
+                base_time -= 1
+                timer.value = base_text + base_time
+            } else {
+                clearInterval(interval)
+                const selesai = confirm("yah Waktu habis :(\nIngin mencoba kembali?")
+                if (selesai) {
+                    base_time = 31
+                    addButton()
+                    intervalConnect()
+                } else {
+                    alert("Baik game berakhir...\nTerimakasih telah bermain game ini")
+                }
+            }
+        }, 1000)
+
+        function intervalConnect() {
+            clearInterval(interval)
+            interval = setInterval(() => {
+                if (base_time !== 0) {
+                    base_time -= 1
+                    timer.value = base_text + base_time
+                } else {
+                    clearInterval(interval)
+                    const selesai = confirm("yah Waktu habis :(\nIngin mencoba kembali?")
+                    if (selesai) {
+                        addButton()
+                        intervalConnect()
+                    } else {
+                        alert("Baik game berakhir...\nTerimakasih telah bermain game ini")
+                    }
+                }
+            }, 1000)
+        }
+    </script>
+</body>
+</html>

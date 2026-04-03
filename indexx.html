@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <dialog id="dialog">
+        <div class="text_dialog">
+            <h2>Welcome to game urut angka</h2>
+            <p>
+                Hai, terimakasih telah memainkan game ini...<br><br>
+                apakah kamu tau cara memainkan game ini?
+                belum tau? yuk simak tutorial dibawah!<br>
+                1. kamu perlu mencari angka urut 1-25.<br>
+                2. setiap angka yang kamu lihat secara berurut perlu di klik!<br>
+                3. jika kamu klik dan tombol berwarna hijau maka benar, jika merah salah.<br>
+                4. kamu diberi waktu 30 detik untuk menyelesaikan permainan ini! Jika berhasil mengurutkan hingga selesai (25) maka menang, jika tidak maka kamu kalah!
+            </p>
+        </div>
+        
+        <div class="button_dialog">
+            <button onclick="hide_tutorial()">mulai</button>
+        </div>
+    </dialog>
+    
+    
+    <div id="box_text">
+        <input type="text" name="timer" id="timer" size="13" disabled/>
+        <input type="text" name="skor" id="skor" value= "skor:   0" size="8" disabled/>
+    </div>
+    <div id="box"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

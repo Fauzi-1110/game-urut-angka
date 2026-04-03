@@ -1,0 +1,86 @@
+body {
+    margin: 0px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#box {
+    position: relative;
+    background: #F3E4C9;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    place-items: center;
+    gap: 0.5px;
+    width: 290px;
+    height: 290px;
+    
+}
+
+div button {
+    height: 55px;
+    width: 55px;
+    background: #BFA28C;
+}
+
+
+#box_text {
+    position: relative;
+}
+
+#timer {
+    position: absolute;
+    top: -167px;
+    left: 0px;
+    width: 11ch;
+}
+
+#skor {
+    position: absolute;
+    top: -167px;
+    left: 235px;
+    width: 7ch;
+}
+
+/*dialog tutor*/
+.text_dialog {
+    overflow-y: scroll;
+    height: 265px;
+    width: 100%;
+    padding: 5px;
+}
+
+dialog {
+    background: #f1d272;
+    border-radius: 5px;
+    padding: 0px;
+    width: 200px;
+    height: 320px;
+}
+
+dialog h2{
+    margin: 2px;
+    text-align: center;
+}
+
+dialog p {
+    font-size: 13px;
+}
+
+.button_dialog {
+    background: transparent;
+    display: flex;
+    justify-content: right;
+    margin-right: 3px;
+    margin-top: 1px;
+}
+dialog button {
+    background: lightblue;
+    position: sticky;
+    border-radius: 12px;
+    width: 55px;
+    height: 40px;
+}
