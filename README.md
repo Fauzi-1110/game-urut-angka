@@ -18,6 +18,7 @@ Pemain harus menekan angka dari 1 sampai 25 secara berurutan sebelum waktu habis
 
 ## Cara menjalankan
 Buka file index.html di browser.
+atau cek pada url https://game-urut-angka.vercel.app
 
 ## Screenshot
 ![hai](ssgame.jpg)
